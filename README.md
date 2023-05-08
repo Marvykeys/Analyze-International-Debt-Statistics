@@ -1,4 +1,4 @@
-# Analyze-International-Debt-Statistics
+# :chart_with_upwards_trend: Analyze-International-Debt-Statistics :bar_chart: 
 ## 1. The World Bank's international debt data
 <p>It's not that we humans only take debts to manage our necessities. A country may also take debt to manage its economy. For example, infrastructure spending is one costly ingredient required for a country's citizens to lead comfortable lives. <a href="https://www.worldbank.org">The World Bank</a> is the organization that provides debt to countries.</p>
 <p>In this notebook, we are going to analyze international debt data collected by The World Bank. The dataset contains information about the amount of debt (in USD) owed by developing countries across several categories. We are going to find the answers to questions like: </p>
@@ -11,16 +11,13 @@
 <p>The first line of code connects us to the <code>international_debt</code> database where the table <code>international_debt</code> is residing. Let's first <code>SELECT</code> <em>all</em> of the columns from the <code>international_debt</code> table. Also, we'll limit the output to the first ten rows to keep the output clean.</p>
 
 
-```python
-%%sql
-postgresql:///international_debt
+```Python
 SELECT *
 FROM international_debt
 LIMIT 10;
     
 ```
 
-    10 rows affected.
 
 
 
@@ -109,28 +106,14 @@ LIMIT 10;
 
 
 
-```python
-%%nose
-# %%nose needs to be included at the beginning of every @tests cell
-
-last_output = _
-
-def test_output():
-    correct_result_string = '  country_name country_code                                     indicator_name  indicator_code                 debt\n0  Afghanistan          AFG  Disbursements on external debt, long-term (DIS...  DT.DIS.DLXF.CD   72894453.700000003\n1  Afghanistan          AFG  Interest payments on external debt, long-term ...  DT.INT.DLXF.CD   53239440.100000001\n2  Afghanistan          AFG                  PPG, bilateral (AMT, current US$)  DT.AMT.BLAT.CD   61739336.899999999\n3  Afghanistan          AFG                  PPG, bilateral (DIS, current US$)  DT.DIS.BLAT.CD   49114729.399999999\n4  Afghanistan          AFG                  PPG, bilateral (INT, current US$)  DT.INT.BLAT.CD   39903620.100000001\n5  Afghanistan          AFG               PPG, multilateral (AMT, current US$)  DT.AMT.MLAT.CD             39107845\n6  Afghanistan          AFG               PPG, multilateral (DIS, current US$)  DT.DIS.MLAT.CD   23779724.300000001\n7  Afghanistan          AFG               PPG, multilateral (INT, current US$)  DT.INT.MLAT.CD             13335820\n8  Afghanistan          AFG         PPG, official creditors (AMT, current US$)  DT.AMT.OFFT.CD  100847181.900000006\n9  Afghanistan          AFG         PPG, official creditors (DIS, current US$)  DT.DIS.OFFT.CD   72894453.700000003'
-    try:
-        assert last_output.DataFrame().to_string() == correct_result_string
-    except AttributeError:
-        assert False, "Please ensure a SQL ResultSet is the output of the code cell."
-    except AssertionError:
-        assert False, "The results of the query are incorrect. Please review the instructions and check the hint if necessary."
-```
 
 
 
 
 
 
-    1/1 tests passed
+
+
 
 
 
@@ -140,15 +123,13 @@ def test_output():
 <p>Without a count of unique countries, we will not be able to perform our statistical analyses holistically. In this section, we are going to extract the number of unique countries present in the table. </p>
 
 
-```python
-%%sql
+``` Python
 SELECT 
     COUNT(DISTINCT country_name) AS total_distinct_countries
 FROM international_debt;
 ```
 
-     * postgresql:///international_debt
-    1 rows affected.
+
 
 
 
@@ -166,28 +147,12 @@ FROM international_debt;
 
 
 
-```python
-%%nose
-# %%nose needs to be included at the beginning of every @tests cell
-
-last_output = _
-
-def test_output():
-    correct_result_string = '   total_distinct_countries\n0                       124'
-    try:
-        assert last_output.DataFrame().to_string() == correct_result_string
-    except AttributeError:
-        assert False, "Please ensure a SQL ResultSet is the output of the code cell."
-    except AssertionError:
-        assert False, "The results of the query are incorrect. Please review the instructions and check the hint if necessary."
-```
 
 
 
 
 
 
-    1/1 tests passed
 
 
 
@@ -197,14 +162,11 @@ def test_output():
 
 
 ```python
-%%sql
 SELECT DISTINCT indicator_code AS distinct_debt_indicators
 FROM international_debt
 ORDER BY distinct_debt_indicators;
 ```
 
-     * postgresql:///international_debt
-    25 rows affected.
 
 
 
@@ -294,28 +256,14 @@ ORDER BY distinct_debt_indicators;
 
 
 
-```python
-%%nose
-# %%nose needs to be included at the beginning of every @tests cell
-
-last_output = _
-
-def test_output():
-    correct_result_string = '   distinct_debt_indicators\n0            DT.AMT.BLAT.CD\n1            DT.AMT.DLXF.CD\n2            DT.AMT.DPNG.CD\n3            DT.AMT.MLAT.CD\n4            DT.AMT.OFFT.CD\n5            DT.AMT.PBND.CD\n6            DT.AMT.PCBK.CD\n7            DT.AMT.PROP.CD\n8            DT.AMT.PRVT.CD\n9            DT.DIS.BLAT.CD\n10           DT.DIS.DLXF.CD\n11           DT.DIS.MLAT.CD\n12           DT.DIS.OFFT.CD\n13           DT.DIS.PCBK.CD\n14           DT.DIS.PROP.CD\n15           DT.DIS.PRVT.CD\n16           DT.INT.BLAT.CD\n17           DT.INT.DLXF.CD\n18           DT.INT.DPNG.CD\n19           DT.INT.MLAT.CD\n20           DT.INT.OFFT.CD\n21           DT.INT.PBND.CD\n22           DT.INT.PCBK.CD\n23           DT.INT.PROP.CD\n24           DT.INT.PRVT.CD'
-    try:    
-        assert last_output.DataFrame().to_string() == correct_result_string
-    except AttributeError:
-        assert False, "Please ensure a SQL ResultSet is the output of the code cell."
-    except AssertionError:
-        assert False, "The results of the query are incorrect. Please review the instructions and check the hint if necessary."
-```
 
 
 
 
 
 
-    1/1 tests passed
+
+  
 
 
 
@@ -326,14 +274,11 @@ def test_output():
 
 
 ```python
-%%sql
 SELECT 
     ROUND(SUM(debt)/1000000, 2) AS total_debt
 FROM international_debt; 
 ```
 
-     * postgresql:///international_debt
-    1 rows affected.
 
 
 
@@ -351,28 +296,13 @@ FROM international_debt;
 
 
 
-```python
-%%nose
-# %%nose needs to be included at the beginning of every @tests cell
-
-last_output = _
-
-def test_output():
-    correct_result_string = '   total_debt\n0  3079734.49'
-    try:
-        assert last_output.DataFrame().to_string() == correct_result_string
-    except AttributeError:
-        assert False, "Please ensure a SQL ResultSet is the output of the code cell."
-    except AssertionError:
-        assert False, "The results of the query are incorrect. Please review the instructions and check the hint if necessary."
-```
 
 
 
 
 
 
-    1/1 tests passed
+
 
 
 
@@ -383,7 +313,6 @@ def test_output():
 
 
 ```python
-%%sql
 SELECT 
     country_name, 
     SUM(debt) AS total_debt
@@ -392,9 +321,6 @@ GROUP BY country_name
 ORDER BY total_debt DESC
 LIMIT 1;
 ```
-
-     * postgresql:///international_debt
-    1 rows affected.
 
 
 
@@ -414,28 +340,12 @@ LIMIT 1;
 
 
 
-```python
-%%nose
-# %%nose needs to be included at the beginning of every @tests cell
-
-last_output = _
-
-def test_output():
-    correct_result_string = '  country_name              total_debt\n0        China  285793494734.200001568'
-    try:
-        assert last_output.DataFrame().to_string() == correct_result_string
-    except AttributeError:
-        assert False, "Please ensure a SQL ResultSet is the output of the code cell."
-    except AssertionError:
-        assert False, "The results of the query are incorrect. Please review the instructions and check the hint if necessary."
-```
 
 
 
 
 
 
-    1/1 tests passed
 
 
 
@@ -446,7 +356,6 @@ def test_output():
 
 
 ```python
-%%sql
 SELECT 
     indicator_code AS debt_indicator,
     indicator_name,
@@ -457,8 +366,6 @@ ORDER BY average_debt DESC
 LIMIT 10;
 ```
 
-     * postgresql:///international_debt
-    10 rows affected.
 
 
 
@@ -525,28 +432,13 @@ LIMIT 10;
 
 
 
-```python
-%%nose
-# %%nose needs to be included at the beginning of every @tests cell
-
-last_output = _
-
-def test_output():
-    correct_result_string = '   debt_indicator                                     indicator_name          average_debt\n0  DT.AMT.DLXF.CD  Principal repayments on external debt, long-te...  5904868401.499193612\n1  DT.AMT.DPNG.CD  Principal repayments on external debt, private...  5161194333.812658349\n2  DT.DIS.DLXF.CD  Disbursements on external debt, long-term (DIS...  2152041216.890243888\n3  DT.DIS.OFFT.CD         PPG, official creditors (DIS, current US$)  1958983452.859836046\n4  DT.AMT.PRVT.CD          PPG, private creditors (AMT, current US$)  1803694101.963265321\n5  DT.INT.DLXF.CD  Interest payments on external debt, long-term ...  1644024067.650806481\n6  DT.DIS.BLAT.CD                  PPG, bilateral (DIS, current US$)  1223139290.398230108\n7  DT.INT.DPNG.CD  Interest payments on external debt, private no...  1220410844.421518983\n8  DT.AMT.OFFT.CD         PPG, official creditors (AMT, current US$)  1191187963.083064523\n9  DT.AMT.PBND.CD                      PPG, bonds (AMT, current US$)  1082623947.653623188'
-    try:
-        assert last_output.DataFrame().to_string() == correct_result_string
-    except AttributeError:
-        assert False, "Please ensure a SQL ResultSet is the output of the code cell."
-    except AssertionError:
-        assert False, "The results of the query are incorrect. Please review the instructions and check the hint if necessary."
-```
 
 
 
 
 
 
-    1/1 tests passed
+
 
 
 
@@ -558,7 +450,6 @@ def test_output():
 
 
 ```python
-%%sql
 SELECT 
     country_name, 
     indicator_name
@@ -569,8 +460,6 @@ WHERE debt = (SELECT
              WHERE indicator_code = 'DT.AMT.DLXF.CD');
 ```
 
-     * postgresql:///international_debt
-    1 rows affected.
 
 
 
@@ -590,28 +479,11 @@ WHERE debt = (SELECT
 
 
 
-```python
-%%nose
-# %%nose needs to be included at the beginning of every @tests cell
-
-last_output = _
-
-def test_output():
-    correct_result_string = '  country_name                                     indicator_name\n0        China  Principal repayments on external debt, long-te...'
-    try:
-        assert last_output.DataFrame().to_string() == correct_result_string
-    except AttributeError:
-        assert False, "Please ensure a SQL ResultSet is the output of the code cell."
-    except AssertionError:
-        assert False, "The results of the query are incorrect. Please review the instructions and check the hint if necessary."
-```
 
 
 
 
 
-
-    1/1 tests passed
 
 
 
@@ -622,7 +494,6 @@ def test_output():
 
 
 ```python
-%%sql
 SELECT indicator_code, COUNT(indicator_code) AS indicator_count
 FROM international_debt
 GROUP BY indicator_code
@@ -631,8 +502,6 @@ LIMIT 20;
 
 ```
 
-     * postgresql:///international_debt
-    20 rows affected.
 
 
 
@@ -728,28 +597,12 @@ LIMIT 20;
 
 
 
-```python
-%%nose
-# %%nose needs to be included at the beginning of every @tests cell
-
-last_output = _
-
-def test_output():
-    correct_result_string = '    indicator_code  indicator_count\n0   DT.INT.OFFT.CD              124\n1   DT.INT.MLAT.CD              124\n2   DT.INT.DLXF.CD              124\n3   DT.AMT.OFFT.CD              124\n4   DT.AMT.MLAT.CD              124\n5   DT.AMT.DLXF.CD              124\n6   DT.DIS.DLXF.CD              123\n7   DT.INT.BLAT.CD              122\n8   DT.DIS.OFFT.CD              122\n9   DT.AMT.BLAT.CD              122\n10  DT.DIS.MLAT.CD              120\n11  DT.DIS.BLAT.CD              113\n12  DT.INT.PRVT.CD               98\n13  DT.AMT.PRVT.CD               98\n14  DT.INT.PCBK.CD               84\n15  DT.AMT.PCBK.CD               84\n16  DT.INT.DPNG.CD               79\n17  DT.AMT.DPNG.CD               79\n18  DT.INT.PBND.CD               69\n19  DT.AMT.PBND.CD               69'
-    try:
-        assert last_output.DataFrame().to_string() == correct_result_string
-    except AttributeError:
-        assert False, "Please ensure a SQL ResultSet is the output of the code cell."
-    except AssertionError:
-        assert False, "The results of the query are incorrect. Please review the instructions and check the hint if necessary."
-```
 
 
 
 
 
 
-    1/1 tests passed
 
 
 
@@ -761,7 +614,6 @@ def test_output():
 
 
 ```python
-%%sql
 SELECT country_name,
        MAX(debt) AS maximum_debt
 FROM international_debt
@@ -769,9 +621,6 @@ GROUP BY country_name
 ORDER BY maximum_debt DESC
 LIMIT 10;
 ```
-
-     * postgresql:///international_debt
-    10 rows affected.
 
 
 
@@ -827,25 +676,9 @@ LIMIT 10;
 
 
 
-```python
-%%nose
-# %%nose needs to be included at the beginning of every @tests cell
-
-last_output = _
-
-def test_output():
-    correct_result_string = '                                   country_name           maximum_debt\n0                                         China  96218620835.699996948\n1                                        Brazil  90041840304.100006104\n2                            Russian Federation          66589761833.5\n3                                        Turkey  51555031005.800003052\n4                                    South Asia  48756295898.199996948\n5  Least developed countries: UN classification  40160766261.599998474\n6                                      IDA only  34531188113.199996948\n7                                         India  31923507000.799999237\n8                                     Indonesia  30916112653.799999237\n9                                    Kazakhstan  27482093686.400001526'
-    try:
-        assert last_output.DataFrame().to_string() == correct_result_string
-    except AttributeError:
-        assert False, "Please ensure a SQL ResultSet is the output of the code cell."
-    except AssertionError:
-        assert False, "The results of the query are incorrect. Please review the instructions and check the hint if necessary."
-```
 
 
 
 
 
 
-    1/1 tests passed
